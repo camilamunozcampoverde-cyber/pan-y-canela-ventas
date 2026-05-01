@@ -293,24 +293,25 @@ h1 {
     <!-- PEGA AQUÍ TODO TU CÓDIGO HTML DE CODEPEN -->
 <div class="main-wrapper">
   
-<!-- 1. PANTALLA DE BIENVENIDA -->
-<div id="pantallaInicio" class="glass-card active fade-in">
-  <div class="brand-header">
-    <img src="https://i.ibb.co/wZhvbN76/Logo-Estilista-Comercio-Tipogr-fico-Retro-Llamativo-Blanco-Rojo.png" alt="Logo Pan & Canela" style="max-width: 150px;">
+  <!-- 1. PANTALLA DE BIENVENIDA -->
+  <div id="pantallaInicio" class="glass-card active fade-in">
+    <div class="brand-header">
+      <img src="https://i.ibb.co/wZhvbN76/Logo-Estilista-Comercio-Tipogr-fico-Retro-Llamativo-Blanco-Rojo.png" alt="Logo Pan & Canela" style="max-width: 150px;">
+    </div>
+    <h1>Bienvenido</h1>
+    <p class="subtitle">Personaliza tu momento dulce con la calidad de Pan & Canela</p>
+    <button onclick="mostrarPaso('paso1')" class="btn-primary">Empezar Pedido</button>
   </div>
-  <h1>Bienvenido</h1>
-  <p class="subtitle">Personaliza tu momento dulce con la calidad de Pan & Canela</p>
   
-  <div class="welcome-actions" style="display: flex; flex-direction: column; gap: 15px; align-items: center; margin-top: 20px;">
-    <!-- Botón Principal del sistema que estamos haciendo -->
-    <button onclick="mostrarPaso('paso1')" class="btn-primary" style="width: 100%;">Personalizar mi Torta</button>
-    
-    <!-- Botón Especial Día de la Madre -->
-   <a href="/pan-y-canela-ventas/madre/" class="btn-especial-madre">
-  🌸 Especial Día de la Madre
-</a>
+  <!-- 2. PASO 1: TAMAÑO -->
+  <div id="paso1" class="glass-card section-card" style="display:none;">
+    <div class="header-nav">
+      <button onclick="mostrarPaso('pantallaInicio')" class="btn-back">← Inicio</button>
+      <h2 class="gold-text">1. Tamaño</h2>
+    </div>
+    <p class="instruccion">¿Cuántas porciones necesitas?</p>
+    <select id="selectTamaño" class="custom-select"></select>
   </div>
-</div>
 
   <!-- 3. PASO 2: SABORES -->
   <div id="paso2" class="glass-card section-card" style="display:none;">
@@ -396,7 +397,10 @@ h1 {
     </div>
   </div>
 </div>
+    
     <script>
+
+        
         /* PEGA AQUÍ TODO TU CÓDIGO JS DE CODEPEN */
 const urlAPI = "https://script.google.com/macros/s/AKfycbx2q7pA_gduY4Y7qut86gQd16J0y48ALSj1_bthl3C4YNOz1tSyBNQyEHY9_AKKhI5n/exec";
 let todasLasTablas = {}; 
