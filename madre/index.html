@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pan & Canela - Especial Día de la Madre</title>
+    
+    <!-- 1. AQUÍ PEGAS TODO TU CSS -->
+
+  
+    <style>
+ /* Esto hará que los campos de datos "aparezcan" visualmente */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--naranja); /* Título del campo en naranja */
+    font-size: 0.9rem;
+}
+
+input[type="text"], 
+input[type="time"], 
+select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid var(--melon); /* Borde melón para que se vea el límite */
+    background: white; /* Fondo blanco para que resalte sobre el crema */
+    border-radius: 12px;
+    font-family: 'Glacial Indifference', sans-serif;
+    color: var(--texto);
+    transition: 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--fucsia); /* Cambia a fucsia cuando el cliente escribe */
+    box-shadow: 0 0 10px rgba(216, 27, 96, 0.1);
+}
+
+/* Esto asegura que los selectores de hora y fecha tengan borde y fondo */
+input[type="time"],
+input[type="date"],
+input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    /* Usamos un borde un poquito más oscuro que el melón para que resalte */
+    border: 2px solid #FF9E7D; 
+    background-color: white !important; /* Forzamos fondo blanco */
+    border-radius: 12px;
+    color: var(--texto);
+    font-size: 1rem;
+    appearance: none; /* Quita estilos automáticos feos de algunos celulares */
+    -webkit-appearance: none;
+}
+
+/* Un toque extra: que resalte cuando pasas el mouse */
+input[type="time"]:hover {
+    border-color: var(--fucsia);
+}
+
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 2. AQUÍ PEGAS TODO TU HTML -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pan & Canela - Especial Día de la Madre</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Glacial+Indifference:wght@400;700&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --naranja: #FF6B35;
+            --melon: #FFB38E;
+            --beige-dorado: #D4AF37;
+            --fucsia: #D81B60;
+            --crema: #FFF8F0;
+            --texto: #4A3F35;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Glacial Indifference', sans-serif; 
+            background-color: var(--crema); 
+            color: var(--texto);
+            padding-bottom: 120px;
+        }
+
+        h1, h2, h3 { font-family: 'DM Serif Display', serif; }
+        .manuscrito { font-family: 'Monsieur La Doulaise', cursive; font-size: 2.8rem; color: var(--blanco); }
+
+        /* Hero Section con Imagen 1 */
+        .hero {
+            height: 75vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://i.ibb.co/9m6P1gnm/IMG-6727.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+        .hero h1 { font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+
+        .container { max-width: 850px; margin: 0 auto; padding: 40px 20px; }
+
+        /* Estilo de Tarjetas de Producto */
+        .product-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            margin-bottom: 50px;
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.05);
+            border: 1px solid var(--melon);
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover { transform: translateY(-10px); }
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-bottom: 5px solid var(--naranja);
+        }
+
+        .product-info { padding: 30px; }
+        .product-info h2 { color: var(--naranja); font-size: 2rem; margin-bottom: 10px; }
+        .product-info h3 { color: var(--fucsia); margin-bottom: 15px; }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+
+        select, input[type="text"], input[type="time"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--crema);
+            background: var(--crema);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--fucsia);
+        }
+
+        input[type="checkbox"] { transform: scale(1.5); accent-color: var(--fucsia); }
+
+        /* Galería Pinterest Asimétrica */
+        .pinterest-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-auto-rows: 250px;
+            gap: 20px;
+            margin-top: 60px;
+        }
+        .pin { border-radius: 20px; overflow: hidden; position: relative; }
+        .pin:nth-child(odd) { transform: translateY(30px); }
+        .pin img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .pin:hover img { transform: scale(1.1); }
+
+        /* Sticky Footer Premium */
+        .sticky-footer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            z-index: 1000;
+            border: 2px solid var(--naranja);
+        }
+
+        .total-label { font-size: 0.8rem; color: var(--texto); display: block; }
+        .total-price { font-size: 1.8rem; color: var(--naranja); font-weight: bold; }
+
+        .btn-send {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .product-image { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <span class="manuscrito">Pan & Canela</span>
+        <h1>Catálogo para Mamá</h1>
+    </section>
+
+    <div class="container">
+        <form id="orderForm">
+            
+            <div class="product-card">
+                <img src="https://i.ibb.co/Q7hF8g1V/IMG-6719.jpg" class="product-image" alt="Torta Maceta">
+                <div class="product-info">
+                    <h2>Torta en Maceta</h2>
+                    <p>Un detalle floral con base de pastel artesanal.</p>
+                    <div class="options-grid">
+                        <select id="tortaBase" onchange="updateTotal()">
+                            <option value="0">Seleccionar Sabor...</option>
+                            <option value="14">Chocolate ($14.00)</option>
+                            <option value="15">Zanahoria ($15.00)</option>
+                            <option value="15">Limón ($15.00)</option>
+                        </select>
+                        <select id="tortaFlores">
+                            <option value="Rosadas">Flores Rosadas</option>
+                            <option value="Blancas">Flores Blancas</option>
+                            <option value="Rojas">Flores Rojas</option>
+                        </select>
+                    </div>
+                  
+<div style="margin-top:15px">
+    <p style="font-weight:bold; margin-bottom:5px; color:var(--texto);">Selecciona tus rellenos (Máx. 2):</p>
+    <p style="font-size: 0.8rem; color: var(--fucsia); margin-bottom: 10px;">
+        <i>*Nota: El color de la tortita será acorde al color de las flores.</i>
+    </p>
+    
+    <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
+        <label class="check-item" style="color:var(--texto); font-weight:normal;">
+            <input type="checkbox" name="relleno" value="Brigadeiro de Limón" data-precio="3" onclick="limitarRellenos(this); updateTotal();"> 
+            Brigadeiro de Limón (+$3.00)
+        </label>
+        <label class="check-item" style="color:var(--texto); font-weight:normal;">
+            <input type="checkbox" name="relleno" value="Dulce de Leche" data-precio="0" onclick="limitarRellenos(this); updateTotal();"> 
+            Dulce de Leche
+        </label>
+        <label class="check-item" style="color:var(--texto); font-weight:normal;">
+            <input type="checkbox" name="relleno" value="Frutos Rojos" data-precio="0" onclick="limitarRellenos(this); updateTotal();"> 
+            Frutos Rojos
+        </label>
+    </div>
+</div>
+
+                    </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.ibb.co/JRcqyk8C/IMG-6720.png" class="product-image" alt="Caja Cupcakes">
+                <div class="product-info">
+                    <h2>Caja de 6 Cupcakes</h2>
+                    <h3>$9.00</h3>
+                    <div class="options-grid">
+                        <label class="check-item">
+                            <input type="checkbox" id="checkCupcake" onchange="updateTotal()"> ¡Lo quiero!
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" id="cupcakeExtra" onchange="updateTotal()"> Extra Relleno (+$1.50)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.ibb.co/27M5nq8F/IMG-6721.png" class="product-image" alt="Chocoflan">
+                <div class="product-info">
+                    <h2>Chocoflan Tradicional</h2>
+                    <h3>$15.00</h3>
+                    <label class="check-item">
+                        <input type="checkbox" id="checkChocoflan" onchange="updateTotal()"> Añadir al pedido
+                    </label>
+                </div>
+            </div>
+
+            <div class="product-card" style="border: 2px dashed var(--fucsia);">
+                <div class="product-info">
+                    <h2 style="color: var(--fucsia);">Personalización PrintX</h2>
+                    <select id="extraPrint" onchange="updateTotal()">
+                        <option value="0">Sin extras</option>
+                        <option value="2">Topper personalizado Feliz día Mamá (+$2.00)</option>
+                        <option value="2">Set 3 Fotos con mamá (+$2.00)</option>
+                        <option value="4">Combo Topper + Fotos (+$4.00)</option>
+                    </select>
+                </div>
+            </div>
+
+         <div class="product-info">
+    <h2 style="text-align: center; margin-bottom: 30px;">Finaliza tu pedido</h2>
+    
+    <div class="options-grid">
+        <div class="input-group">
+            <label>👤 Nombre Completo:</label>
+            <input type="text" id="clienteNombre" placeholder="Ej: Juan Perez" required>
+        </div>
+
+        <div class="input-group">
+            <label>📱 Tu WhatsApp:</label>
+            <input type="text" id="clienteWA" placeholder="Ej: 0945454544" required>
+        </div>
+
+        <div class="input-group">
+    <label>🕐 Hora de Retiro (Domingo 10 de Mayo):</label>
+    <select id="entregaHora" required style="cursor: pointer;">
+        <option value="" disabled selected>-- Elige una hora --</option>
+        <optgroup label="Mañana">
+            <option value="08:00">08:00 AM</option>
+            <option value="08:30">08:30 AM</option>
+            <option value="09:00">09:00 AM</option>
+            <option value="09:30">09:30 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="10:30">10:30 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+        </optgroup>
+        <optgroup label="Tarde">
+            <option value="12:00">12:00 PM</option>
+            <option value="12:30">12:30 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="13:30">01:30 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="14:30">02:30 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="15:30">03:30 PM</option>
+            <option value="16:00">04:00 PM</option>
+            <option value="16:30">04:30 PM</option>
+            <option value="17:00">05:00 PM</option>
+            <option value="17:30">05:30 PM</option>
+            <option value="18:00">06:00 PM</option>
+            <option value="18:30">06:30 PM</option>
+        </optgroup>
+    </select>
+</div>
+
+        
+        </div>
+    </div>
+</div>
+<div style="margin-top: 30px; padding: 20px; border: 2px solid var(--naranja); border-radius: 20px; text-align: center; background-color: white;">
+    <span style="color: var(--texto); font-size: 1rem;">Total estimado:</span>
+    <div id="displayTotal" style="font-size: 2.5rem; font-weight: bold; color: var(--fucsia); margin: 10px 0;">$0.00</div>
+    
+    <button class="btn-send" onclick="sendToWhatsApp()" style="width: 100%; max-width: 400px; background-color: #25D366; color: white; border: none; padding: 18px; border-radius: 50px; font-weight: bold; font-size: 1.2rem; cursor: pointer;">
+        Hacer Pedido por WhatsApp 📲
+    </button>
+</div>
+
+        </form>
+
+        <h2 style="text-align:center; margin-top:80px; color: var(--fucsia);">Nuestras Creaciones</h2>
+        <div class="pinterest-gallery">
+            <div class="pin"><img src="https://i.ibb.co/f6k6bmQ/IMG-6722.jpg"></div>
+            <div class="pin"><img src="https://i.ibb.co/YB6SkZG4/IMG-6723.jpg"></div>
+            <div class="pin"><img src="https://i.ibb.co/0pZSdS34/IMG-6728.jpg"></div>
+            <div class="pin"><img src="https://i.ibb.co/Kj57KqLV/IMG-6729.jpg"></div>
+            <div class="pin"><img src="https://i.ibb.co/VcfMswXg/IMG-6731.jpg"></div>
+            <div class="pin"><img src="https://i.ibb.co/Gfp9NcwL/IMG-6732.jpg"></div>
+            <div class="pin"><img src="https://i.ibb.co/JWXYBrDG/IMG-6730.jpg"></div>
+            <div class="pin"><img src="https://i.ibb.co/sp4Lvvqy/IMG-6733.jpg"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateTotal() {
+            let total = 0;
+            
+            // Torta
+            total += parseFloat(document.getElementById('tortaBase').value);
+            
+            // Cupcakes
+            if(document.getElementById('checkCupcake').checked) {
+                total += 9;
+                if(document.getElementById('cupcakeExtra').checked) total += 1.5;
+            }
+            
+            // Chocoflan
+            if(document.getElementById('checkChocoflan').checked) total += 15;
+            
+            // Extras PrintX
+            total += parseFloat(document.getElementById('extraPrint').value);
+            
+            document.getElementById('displayTotal').innerText = `$${total.toFixed(2)}`;
+        }
+
+        function sendToWhatsApp() {
+            const nombre = document.getElementById('clienteNombre').value;
+            const hora = document.getElementById('entregaHora').value;
+            const wa = document.getElementById('clienteWA').value;
+            const total = document.getElementById('displayTotal').innerText;
+
+            if(!nombre || !hora || total === "$0.00") {
+                alert("Por favor completa tu nombre, hora y selecciona al menos un producto.");
+                return;
+            }
+
+            let prodDetalle = "";
+            if(document.getElementById('tortaBase').value > 0) prodDetalle += `Torta Maceta (${document.getElementById('tortaFlores').value}), `;
+            if(document.getElementById('checkCupcake').checked) prodDetalle += "Caja 6 Cupcakes, ";
+            if(document.getElementById('checkChocoflan').checked) prodDetalle += "Chocoflan, ";
+
+            const mensaje = encodeURIComponent(`🌸 *PEDIDO - Día de la Madre* 🌸\n━━━━━━━━━━━━━━━━━━\n🎂 *Producto:* ${prodDetalle}\n🍰 *Detalle:* ${document.getElementById('tortaRelleno').value || 'Sin especificar'}\n💵 *TOTAL:* ${total}\n━━━━━━━━━━━━━━━━━━\n👤 *Nombre:* ${nombre}\n🕐 *Hora de retiro:* ${hora}\n📱 *WhatsApp:* ${wa}\n\n*Pedido desde Catálogo Web* 🌷`);
+
+            window.open(`https://wa.me/593985482535?text=${mensaje}`);
+        }
+    </script>
+</body>
+</html>
+
+
+
+    <!-- 3. AQUÍ PEGAS TODO TU JS -->
+    <script>
+
+      // 1. Lógica para que no elijan más de 2 rellenos
+function limitarRellenos(checkbox) {
+    const checkboxes = document.getElementsByName('relleno');
+    let seleccionados = 0;
+    checkboxes.forEach((c) => { if(c.checked) seleccionados++; });
+    
+    if (seleccionados > 2) {
+        alert("¡Solo puedes elegir hasta 2 rellenos!");
+        checkbox.checked = false;
+    }
+}
+
+function updateTotal() {
+    let total = 0;
+    
+    // 1. Sumar base de la torta
+    total += parseFloat(document.getElementById('tortaBase').value) || 0;
+    
+    // 2. NUEVO: Sumar extras de rellenos
+    const rellenos = document.getElementsByName('relleno');
+    rellenos.forEach((r) => {
+        if(r.checked) {
+            total += parseFloat(r.getAttribute('data-precio'));
+        }
+    });
+
+    // 3. Sumar Cupcakes
+    if(document.getElementById('checkCupcake').checked) {
+        total += 9;
+        if(document.getElementById('cupcakeExtra').checked) total += 1.5;
+    }
+    
+    // 4. Sumar Chocoflan y Extras PrintX
+    if(document.getElementById('checkChocoflan').checked) total += 15;
+    total += parseFloat(document.getElementById('extraPrint').value) || 0;
+    
+    // Actualizar el número en pantalla
+    document.getElementById('displayTotal').innerText = `$${total.toFixed(2)}`;
+}
+
+
+// 3. Envío de datos a WhatsApp
+function sendToWhatsApp() {
+    const nombre = document.getElementById('clienteNombre').value;
+    const hora = document.getElementById('entregaHora').value;
+    const wa = document.getElementById('clienteWA').value;
+    const total = document.getElementById('displayTotal').innerText;
+
+    if(!nombre || !hora || total === "$0.00") {
+        alert("Por favor completa tus datos y selecciona al menos un producto.");
+        return;
+    }
+
+    // Captura los rellenos marcados
+    const rellenosBoxes = document.getElementsByName('relleno');
+    let rellenosElegidos = [];
+    rellenosBoxes.forEach((b) => { if(b.checked) rellenosElegidos.push(b.value); });
+    const detalleRellenos = rellenosElegidos.length > 0 ? rellenosElegidos.join(" y ") : "Estándar";
+
+    // Captura los productos base
+    let productos = "";
+    if(document.getElementById('tortaBase').value > 0) productos += `Torta Maceta (${document.getElementById('tortaFlores').value}), `;
+    if(document.getElementById('checkCupcake').checked) productos += "Caja Cupcakes, ";
+    if(document.getElementById('checkChocoflan').checked) productos += "Chocoflan, ";
+
+    const extraSelect = document.getElementById('extraPrint');
+    const extraTexto = extraSelect.options[extraSelect.selectedIndex].text;
+
+    const mensaje = encodeURIComponent(`🌸 *PEDIDO - Día de la Madre* 🌸\n━━━━━━━━━━━━━━━━━━\n🎂 *Producto:* ${productos}\n🍰 *Rellenos:* ${detalleRellenos}\n✨ *PrintX:* ${extraTexto}\n💵 *TOTAL:* ${total}\n━━━━━━━━━━━━━━━━━━\n👤 *Nombre:* ${nombre}\n🕐 *Hora retiro:* ${hora}\n📱 *WhatsApp:* ${wa}\n\n*Pedido desde Pan & Canela Web* 🌷`);
+
+    window.open(`https://wa.me/593985482535?text=${mensaje}`);
+}
+
+        
+        // Asegúrate de que la urlAPI sea la correcta para 
+        // los pedidos del día de la madre
+    </script>
+</body>
+</html>
