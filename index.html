@@ -552,22 +552,23 @@ function prepararSeleccionSabores(fila) {
     precioBase = 0; // Se calculará según el sabor elegido en generarGaleria
   }
 }
-
-function generarGaleria(fila, idContenedor, numPiso) {
+function generarGaleria(fila, idContenedor, numPiso, ocultarPrecio) {
   const contenedor = document.getElementById(idContenedor);
   Object.keys(fila).forEach(nombreCol => {
     if (nombreCol.toLowerCase().includes('porcion') || nombreCol.toLowerCase().includes('imagen')) return;
 
     const precioSabor = fila[nombreCol];
-    const imgUrl = obtenerImagenDeHoja(nombreCol); 
+    const imgUrl = obtenerImagenDeHoja(nombreCol);
 
     const card = document.createElement('div');
     card.className = `sabor-card card-piso-${numPiso} fade-in`;
+    
+    // Aquí corregimos lo de no mostrar el precio
     card.innerHTML = `
       <img src="${imgUrl}">
       <div class="sabor-info">
         <h4>${nombreCol}</h4>
-        <p class="gold-text-small">$${precioSabor}</p>
+        ${ocultarPrecio ? '' : `<p class="gold-text-small">$${precioSabor}</p>`}
       </div>`;
 
     card.onclick = () => {
@@ -575,13 +576,17 @@ function generarGaleria(fila, idContenedor, numPiso) {
       card.classList.add('selected');
       
       seleccionPedido[`piso${numPiso}`].sabor = nombreCol;
-      seleccionPedido[`piso${numPiso}`].precio = parseFloat(precioSabor);
+      
+      // Si ocultamos precio (es 2 pisos), el precio del sabor no suma individualmente
+      seleccionPedido[`piso${numPiso}`].precio = ocultarPrecio ? 0 : parseFloat(precioSabor);
       
       revisarSiguientePasoSabores();
     };
     contenedor.appendChild(card);
   });
 }
+
+
 
 function revisarSiguientePasoSabores() {
   const listoP1 = seleccionPedido.piso1.sabor !== "";
