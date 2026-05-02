@@ -2,797 +2,294 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Pan & Canela - Personalizador</title>
-    <style> 
-        /* PEGA AQUÍ TODO TU CÓDIGO CSS DE CODEPEN */ 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pan & Canela | Luxury Experience</title>
+    
+    <!-- Frameworks y Tipografía -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #003D51; /* Azul Petróleo oficial */
+            --gold: #C5A059;    /* Dorado Ocre oficial */
+            --glass: rgba(255, 255, 255, 0.95);
+        }
 
-:root {
-  --primary: #003D51;      /* Azul Petróleo oficial */
-  --gold: #C5A059;         /* Dorado Ocre oficial */
-  --gold-light: #e0c28d;
-  --white: #FFFFFF;
-  --glass: rgba(255, 255, 255, 0.98);
-  --shadow-lux: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-        
-body {
-  /* Fondo con degradado y tu imagen de Pinterest */
-  background: linear-gradient(rgba(0, 61, 81, 0.85), rgba(0, 31, 41, 0.9)), 
-              url('https://i.pinimg.com/736x/6c/66/5e/6c665e6d90806e88a68f86c0c4d36614.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  font-family: 'Montserrat', sans-serif;
-  min-height: 100vh;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--primary);
-}
+        body {
+            background-color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            overflow: hidden; /* Controlado por el snap container */
+        }
 
-.main-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
+        /* Motor de Desplazamiento Snap (Estilo Bahama Buck's) */
+        .snap-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, #002a38 100%);
-  color: var(--gold);
-  border: 1.5px solid var(--gold);
-  padding: 16px 45px;
-  border-radius: 50px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
+        .snap-section {
+            height: 100vh;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* Efecto de brillo sutil al pasar el mouse */
-.btn-primary:hover {
-  background: var(--gold);
-  color: var(--primary);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.4);
-}
+        /* Estética Luxury Tech */
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-left: 3px solid var(--gold);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.4);
+        }
 
-/* Micro-interacción: un brillo que cruza el botón */
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: rgba(255,255,255,0.1);
-  transform: rotate(45deg);
-  transition: 0.5s;
-}
+        .gold-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, #a38445 100%);
+            color: var(--primary);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-.btn-primary:hover::after {
-  left: 120%;
-}
+        .gold-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.4);
+        }
 
-/* Tarjeta Principal */
-.glass-card {
-  background: var(--glass);
-  backdrop-filter: blur(10px);
-  padding: 40px 30px;
-  border-radius: 30px;
-  box-shadow: var(--shadow-lux);
-  width: 100%;
-  max-width: 480px;
-  text-align: center;
-  border: 1px solid rgba(197, 160, 89, 0.3);
-  box-sizing: border-box;
-}
+        .hero-image {
+            width: 45%;
+            height: 75vh;
+            object-fit: cover;
+            border-radius: 25px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+        }
 
-/* Estilo para las tarjetas de extras */
-.extra-card {
-  display: flex;
-  align-items: center;
-  background: var(--white);
-  border-radius: 15px;
-  padding: 10px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: var(--transition);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  margin-bottom: 10px;
-}
-
-.extra-card.selected {
-  border-color: var(--gold);
-  background: #fdfaf4;
-}
-
-.extra-card img {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
-  object-fit: cover;
-  margin-right: 15px;
-}
-
-.extra-info {
-  text-align: left;
-}
-
-/* Encabezado de Navegación */
-.header-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 25px;
-}
-
-.btn-back {
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--primary);
-  padding: 6px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 600;
-  transition: var(--transition);
-}
-
-.btn-back:hover {
-  background: var(--gold);
-  color: var(--white);
-}
-
-/* Tipografía de Lujo */
-h1 { 
-  font-family: 'Playfair Display', serif; 
-  font-size: 2.8rem; 
-  margin: 0 0 10px 0;
-  font-style: italic;
-}
-
-.gold-text { 
-  color: var(--gold); 
-  text-transform: uppercase; 
-  letter-spacing: 3px; 
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-/* Galería Visual de Sabores */
-.visual-gallery {
-  display: grid;
-  gap: 12px;
-  margin: 20px 0;
-}
-
-.sabor-card {
-  display: flex;
-  align-items: center;
-  background: var(--white);
-  border-radius: 15px;
-  padding: 8px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: var(--transition);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-.sabor-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--gold-light);
-}
-
-.sabor-card.selected {
-  border-color: var(--gold);
-  background: #fdfaf4;
-}
-
-.sabor-card img {
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.sabor-info {
-  text-align: left;
-  padding-left: 15px;
-}
-
-.sabor-info h4 { margin: 0; font-size: 1rem; }
-.sabor-info p { margin: 2px 0 0 0; color: var(--gold); font-weight: 700; font-size: 0.9rem;}
-
-/* Contadores y Rellenos */
-.relleno-item {
-  background: #f9f9f9;
-  padding: 12px 18px;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #eee;
-}
-
-.btn-qty {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
-  background: var(--primary);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.btn-qty:disabled { background: #ccc; }
-
-/* Inputs Globales */
-.custom-select, .custom-input {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 14px;
-  border-radius: 12px;
-  width: 100%;
-  font-family: 'Montserrat', sans-serif;
-  box-sizing: border-box;
-}
-
-/* Botón WhatsApp */
-.btn-whatsapp {
-  background: var(--primary);
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  padding: 16px;
-  border-radius: 50px;
-  font-weight: 700;
-  width: 100%;
-  cursor: pointer;
-  transition: var(--transition);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.btn-whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.btn-whatsapp:hover {
-  background: var(--gold);
-  color: var(--primary);
-  box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
-}
-
-/* Animaciones */
-.fade-in {
-  animation: elegantShow 0.6s ease-out forwards;
-}
-
-@keyframes elegantShow {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-      
+        h1, h2, .font-serif { font-family: 'Playfair Display', serif; }
     </style>
 </head>
 <body>
-    <!-- PEGA AQUÍ TODO TU CÓDIGO HTML DE CODEPEN -->
-<div class="main-wrapper">
-  
-  <!-- 1. PANTALLA DE BIENVENIDA -->
-  <div id="pantallaInicio" class="glass-card active fade-in">
-    <div class="brand-header">
-      <img src="https://i.ibb.co/wZhvbN76/Logo-Estilista-Comercio-Tipogr-fico-Retro-Llamativo-Blanco-Rojo.png" alt="Logo Pan & Canela" style="max-width: 150px;">
-    </div>
-    <h1>Bienvenido</h1>
-    <p class="subtitle">Personaliza tu momento dulce con la calidad de Pan & Canela</p>
-    <button onclick="mostrarPaso('paso1')" class="btn-primary">Empezar Pedido</button>
-  </div>
-  
-  <!-- 2. PASO 1: TAMAÑO -->
-  <div id="paso1" class="glass-card section-card" style="display:none;">
-    <div class="header-nav">
-      <button onclick="mostrarPaso('pantallaInicio')" class="btn-back">← Inicio</button>
-      <h2 class="gold-text">1. Tamaño</h2>
-    </div>
-    <p class="instruccion">¿Cuántas porciones necesitas?</p>
-    <select id="selectTamaño" class="custom-select"></select>
-  </div>
 
-  <!-- 3. PASO 2: SABORES -->
-  <div id="paso2" class="glass-card section-card" style="display:none;">
-    <div class="header-nav">
-      <button onclick="mostrarPaso('paso1')" class="btn-back">← Atrás</button>
-      <h2 class="gold-text">2. Sabores</h2>
-    </div>
+<div class="snap-container" id="mainFlow">
+    
+    <!-- 1. BIENVENIDA -->
+    <section class="snap-section bg-[url('https://i.pinimg.com/736x/6c/66/5e/6c665e6d90806e88a68f86c0c4d36614.jpg')] bg-cover bg-center">
+        <div class="absolute inset-0 bg-[#003D51]/75"></div>
+        <div class="relative text-center z-10 p-6" data-aos="zoom-in">
+            <img src="https://i.ibb.co/wZhvbN76/Logo-Estilista-Comercio-Tipogr-fico-Retro-Llamativo-Blanco-Rojo.png" class="mx-auto w-48 mb-8">
+            <h1 class="text-white text-7xl italic mb-4">Pan & Canela</h1>
+            <p class="text-white/80 text-xl font-light mb-12 tracking-[0.3em] uppercase">Excelencia Artesanal</p>
+            <button onclick="scrollToId('pasoTamanos')" class="gold-btn px-14 py-5 rounded-full font-bold uppercase tracking-widest text-sm">Personalizar Pedido</button>
+        </div>
+    </section>
+
+    <!-- 2. TAMAÑOS -->
+    <section class="snap-section bg-zinc-50" id="pasoTamanos">
+        <div class="max-w-6xl w-full p-10">
+            <h2 class="text-[#003D51] text-5xl mb-12 italic">1. Elige el Tamaño</h2>
+            <div id="gridTamanos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Inyectado por JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. GALERÍA DINÁMICA DE SABORES -->
     <div id="contenedorSabores">
-      <!-- Aquí se generarán dinámicamente las galerías (una o dos) -->
+        <!-- Generado según la selección -->
     </div>
-  </div>
-
-  <!-- 4. PASO 3: RELLENOS Y EXTRAS -->
-  <div id="paso3" class="glass-card section-card" style="display:none;">
-    <div class="header-nav">
-      <button onclick="mostrarPaso('paso2')" class="btn-back">← Atrás</button>
-      <h2 class="gold-text">3. Rellenos</h2>
-    </div>
-    
-    <div id="contenedorRellenos">
-      <!-- Aquí se generarán las listas de rellenos por piso -->
-    </div>
-
-    <div class="divider" style="margin: 25px 0; border-top: 1px solid #ddd;"></div>
-    
-    <h3 class="section-subtitle" style="font-family: 'Playfair Display'; color: var(--primary);">Las personas también piden:</h3>
-    <p class="instruccion">Toca los extras que desees agregar (Máx. 3):</p>
-    
-    <!-- Contenedor para la galería de imágenes de extras -->
-    <div id="listaExtras" class="visual-gallery"></div>
-
-    <button onclick="validarYPasarADatos()" class="btn-primary" style="margin-top:20px; width:100%;">
-      Siguiente
-    </button>
-  </div>
-    
-  <!-- 5. PASO 4: DATOS DE ENTREGA Y CIERRE -->
-  <div id="paso4" class="glass-card section-card" style="display:none;">
-    <div class="header-nav">
-      <button onclick="mostrarPaso('paso3')" class="btn-back">← Atrás</button>
-      <h2 class="gold-text">4. Entrega</h2>
-    </div>
-    
-    <div id="totalFinal" class="total-badge" style="margin-bottom: 20px; font-weight: bold; font-size: 1.1rem;"></div>
-
-    <div class="form-container" style="text-align: left;">
-      <div class="input-field">
-        <label style="font-weight: 600; color: var(--primary); margin-bottom: 5px; display: block;">Nombre del Cliente:</label>
-        <input type="text" id="nombreCliente" placeholder="Ej: Camila Muñoz" class="custom-input">
-      </div>
-      
-      <div class="input-row" style="margin-top: 15px;">
-        <div class="input-field">
-          <label style="font-weight: 600; color: var(--primary); margin-bottom: 5px; display: block;">Fecha de Entrega:</label>
-          <input type="date" id="fechaEntrega" class="custom-input">
-        </div>
-        
-        <div class="input-field" style="margin-top: 15px;">
-          <label style="font-weight: 600; color: var(--primary); margin-bottom: 5px; display: block;">Hora de Recogida:</label>
-          <select id="horaEntrega" class="custom-select">
-            <option value="8">8:00 AM</option>
-            <option value="9" selected>9:00 AM</option>
-            <option value="10">10:00 AM</option>
-            <option value="11">11:00 AM</option>
-            <option value="12">12:00 PM</option>
-            <option value="13">1:00 PM</option>
-            <option value="14">2:00 PM</option>
-            <option value="15">3:00 PM</option>
-            <option value="16">4:00 PM</option>
-            <option value="17">5:00 PM</option>
-            <option value="18">6:00 PM</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="politica-abono" style="background: #fdfaf4; border: 1px solid var(--gold); padding: 15px; border-radius: 15px; margin: 20px 0; font-size: 0.85rem; color: #555; line-height: 1.4;">
-        <p style="margin: 0;">⚠️ <strong>Nota importante:</strong> Tu pedido se agendará <strong>únicamente</strong> tras confirmar el abono del <strong>50% del valor total</strong>. Los datos de cuenta te serán proporcionados por mensaje de WhatsApp.</p>
-      </div>
-
-      <button id="btnWhatsApp" class="btn-whatsapp" style="margin-top: 10px;">
-        <span class="icon">📱</span> Confirmar Pedido en WhatsApp
-      </button>
-    </div>
-  </div>
 </div>
+
+<!-- PANEL LATERAL: CONFIGURADOR (GLASSMORPHISM) -->
+<div id="overlayConfig" class="fixed inset-y-0 right-0 w-full md:w-[550px] glass-panel translate-x-full transition-transform duration-500 z-50 p-12 overflow-y-auto">
+    <button onclick="cerrarOverlay()" class="text-[#003D51] font-bold mb-10 flex items-center gap-3 hover:text-[#C5A059] transition-colors">
+        <span class="text-3xl">✕</span> CERRAR
+    </button>
     
-    <script>
+    <div class="mb-12">
+        <h3 class="text-[#003D51] font-bold uppercase text-xs tracking-[0.3em] mb-8 border-b border-zinc-200 pb-3">Rellenos (Máximo 2 por piso)</h3>
+        <div id="listaRellenos" class="space-y-5"></div>
+    </div>
 
-        
-        /* PEGA AQUÍ TODO TU CÓDIGO JS DE CODEPEN */
-const urlAPI = "https://script.google.com/macros/s/AKfycbx2q7pA_gduY4Y7qut86gQd16J0y48ALSj1_bthl3C4YNOz1tSyBNQyEHY9_AKKhI5n/exec";
-let todasLasTablas = {}; 
-let precioBase = 0;
-let cantidadRellenosTotal = 0;
-let saborElegido = "";
+    <div class="mb-12">
+        <h3 class="text-[#003D51] font-bold uppercase text-xs tracking-[0.3em] mb-8 border-b border-zinc-200 pb-3">Extras (Máximo 3)</h3>
+        <div id="listaExtras" class="space-y-5"></div>
+    </div>
+</div>
 
-// --- NUEVAS VARIABLES PARA 2 PISOS ---
-let esDosPisos = false;
-let seleccionPedido = {
-  piso1: { sabor: "", precio: 0 },
-  piso2: { sabor: "", precio: 0 }
-};
+<!-- BARRA DE ESTADO Y TOTAL (STICKY) -->
+<div class="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-xl border-t-2 border-[#C5A059] h-28 flex items-center justify-between px-12 z-40">
+    <div class="flex flex-col">
+        <span class="text-[#003D51] font-bold uppercase text-[11px] tracking-[0.2em]">Total del Pedido</span>
+        <span id="txtTotal" class="text-4xl font-bold text-[#C5A059]">$0.00</span>
+    </div>
+    <div class="flex flex-col items-end gap-2">
+        <button id="btnFlujo" onclick="finalizar()" class="gold-btn px-12 py-5 rounded-full font-bold uppercase text-xs disabled:opacity-40 disabled:grayscale" disabled>
+            Faltan Rellenos...
+        </button>
+        <p class="text-[10px] text-zinc-400 italic">Se requiere abono del 50% para confirmar</p>
+    </div>
+</div>
 
-// 1. CARGA INICIAL Y CONFIGURACIÓN
-fetch(urlAPI)
-  .then(res => res.json())
-  .then(data => {
-    todasLasTablas = data;
-    llenarMenuTamaños();
-    configurarFechaMinima();
-  })
-  .catch(err => console.error("Error cargando datos:", err));
-
-function obtenerImagenDeHoja(nombreProducto) {
-  const hojaImagenes = todasLasTablas["Imagenes"];
-  if (!hojaImagenes) return "https://i.ibb.co/3sX8F8P/logo-pan-canela.png";
-  const registro = hojaImagenes.find(item => item.Producto === nombreProducto);
-  return registro ? registro.Imagen : "https://i.ibb.co/3sX8F8P/logo-pan-canela.png";
-}
-
-function mostrarPaso(idAMostrar) {
-  const pasos = ['pantallaInicio', 'paso1', 'paso2', 'paso3', 'paso4'];
-  pasos.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = 'none';
-  });
-  const activo = document.getElementById(idAMostrar);
-  if (activo) {
-    activo.style.display = 'block';
-    activo.classList.add('fade-in');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
-function configurarFechaMinima() {
-  const hoy = new Date().toISOString().split('T')[0];
-  const inputFecha = document.getElementById('fechaEntrega');
-  if(inputFecha) inputFecha.setAttribute('min', hoy);
-}
-
-// 2. LLENAR TAMAÑOS (PASO 1)
-function llenarMenuTamaños() {
-  const select = document.getElementById('selectTamaño');
-  select.innerHTML = '<option value="">-- Selecciona el tamaño --</option>';
-  for (const nombreHoja in todasLasTablas) {
-    if (["Rellenos", "Extras", "Imagenes", "Pedidos Recibidos"].includes(nombreHoja)) continue;
-    const grupo = document.createElement('optgroup');
-    grupo.label = nombreHoja; 
-    todasLasTablas[nombreHoja].forEach(fila => {
-      const llavePorciones = Object.keys(fila).find(k => k.toLowerCase().includes('porcion'));
-      const option = document.createElement('option');
-      option.value = `${nombreHoja}|${fila[llavePorciones]}`; 
-      option.textContent = fila[llavePorciones] + " porciones";
-      grupo.appendChild(option);
-    });
-    select.appendChild(grupo);
-  }
-}
-
-// 3. EVENTO TAMAÑO -> PASO 2 (CORREGIDO PARA Dos_pisos)
-// 3. EVENTO TAMAÑO -> PASO 2
-document.getElementById('selectTamaño').addEventListener('change', (e) => {
-  const valorElegido = e.target.value;
-  if (valorElegido) {
-    const [forma, tamaño] = valorElegido.split('|');
-    
-    // AQUÍ ESTÁ EL TRUCO: Si la hoja se llama "Dos_Pisos", activamos el modo doble
-    esDosPisos = (forma === "Dos_Pisos"); 
-    
-    const filaEncontrada = todasLasTablas[forma].find(f => {
-      const llave = Object.keys(f).find(k => k.toLowerCase().includes('porcion'));
-      return f[llave] == tamaño;
-    });
-
-    seleccionPedido = { piso1: { sabor: "", precio: 0 }, piso2: { sabor: "", precio: 0 } };
-    
-    // Limpiamos el contenedor y dibujamos las galerías
-    prepararSeleccionSabores(filaEncontrada);
-    mostrarPaso('paso2');
-  }
-});
-
-function prepararSeleccionSabores(fila) {
-  const contenedor = document.getElementById('contenedorSabores');
-  contenedor.innerHTML = '';
-
-  if (esDosPisos) {
-    const selectT = document.getElementById('selectTamaño');
-    const textoTamaño = selectT.options[selectT.selectedIndex].text; // Ej: "45 porciones"
-    
-    let hojaBase = "";
-    let porcionBase = "";
-    let hojaCima = "";
-    let porcionCima = "";
-
-    // --- LÓGICA DE BIFURCACIÓN DE TAMAÑOS ---
-    if (textoTamaño.includes("45")) {
-      hojaBase = "Circular"; porcionBase = "30";
-      hojaCima = "Circular"; porcionCima = "15";
-    } else if (textoTamaño.includes("60")) {
-      hojaBase = "Circular"; porcionBase = "45";
-      hojaCima = "Circular"; porcionCima = "20";
-    } else if (textoTamaño.includes("70")) {
-      hojaBase = "Circular"; porcionBase = "45";
-      hojaCima = "Circular"; porcionCima = "30";
-    }
-
-    // Buscamos las filas correspondientes en las otras hojas
-    const filaBase = todasLasTablas[hojaBase]?.find(f => f["Porciones"] == porcionBase || f["porcion"] == porcionBase);
-    const filaCima = todasLasTablas[hojaCima]?.find(f => f["Porciones"] == porcionCima || f["porcion"] == porcionCima);
-
-    contenedor.innerHTML = `
-      <div class="piso-seleccion">
-        <h3 class="gold-text" style="font-size:1.1rem; border-bottom:1px solid var(--gold);">Piso de Abajo </h3>
-        <p class="instruccion">Elige el sabor de la base:</p>
-        <div id="galeriaP1" class="visual-gallery"></div>
-      </div>
-      <div class="divider" style="margin:30px 0;"></div>
-      <div class="piso-seleccion">
-        <h3 class="gold-text" style="font-size:1.1rem; border-bottom:1px solid var(--gold);">Piso de Arriba</h3>
-        <p class="instruccion">Elige el sabor del segundo piso:</p>
-        <div id="galeriaP2" class="visual-gallery"></div>
-      </div>
-    `;
-
-    // Generamos las galerías con los datos de las otras hojas
-    if (filaBase) generarGaleria(filaBase, 'galeriaP1', 1, true); // true = ocultar precio individual
-    if (filaCima) generarGaleria(filaCima, 'galeriaP2', 2, true);
-   
-
-    // El precio base de la torta de 2 pisos se toma de la fila original (la de Dos_Pisos)
-    precioBase = parseFloat(Object.values(fila).find(v => !isNaN(v) && v > 0) || 0);
-
-  } else {
-    // Caso normal de 1 piso
-    contenedor.innerHTML = `<div id="galeriaP1" class="visual-gallery"></div>`;
-    generarGaleria(fila, 'galeriaP1', 1, false);
-    precioBase = 0; // Se calculará según el sabor elegido en generarGaleria
-  }
-}
-function generarGaleria(fila, idContenedor, numPiso, ocultarPrecio) {
-  const contenedor = document.getElementById(idContenedor);
-  Object.keys(fila).forEach(nombreCol => {
-    if (nombreCol.toLowerCase().includes('porcion') || nombreCol.toLowerCase().includes('imagen')) return;
-
-    const precioSabor = fila[nombreCol];
-    const imgUrl = obtenerImagenDeHoja(nombreCol);
-
-    const card = document.createElement('div');
-    card.className = `sabor-card card-piso-${numPiso} fade-in`;
-    
-    // Aquí corregimos lo de no mostrar el precio
-    card.innerHTML = `
-      <img src="${imgUrl}">
-      <div class="sabor-info">
-        <h4>${nombreCol}</h4>
-        ${ocultarPrecio ? '' : `<p class="gold-text-small">$${precioSabor}</p>`}
-      </div>`;
-
-    card.onclick = () => {
-      document.querySelectorAll(`.card-piso-${numPiso}`).forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      
-      seleccionPedido[`piso${numPiso}`].sabor = nombreCol;
-      
-      // Si ocultamos precio (es 2 pisos), el precio del sabor no suma individualmente
-      seleccionPedido[`piso${numPiso}`].precio = ocultarPrecio ? 0 : parseFloat(precioSabor);
-      
-      revisarSiguientePasoSabores();
+<script>
+    // --- LÓGICA DE DATOS Y AUTOMATIZACIÓN ---
+    const urlAPI = "https://script.google.com/macros/s/AKfycbx2q7pA_gduY4Y7qut86gQd16J0y48ALSj1_bthl3C4YNOz1tSyBNQyEHY9_AKKhI5n/exec";
+    let todasLasTablas = {};
+    let pedido = {
+        base: 0,
+        esDoble: false,
+        piso1: { sabor: "", precio: 0 },
+        piso2: { sabor: "", precio: 0 }
     };
-    contenedor.appendChild(card);
-  });
-}
 
+    AOS.init({ duration: 1200, once: true });
 
+    fetch(urlAPI)
+        .then(res => res.json())
+        .then(data => {
+            todasLasTablas = data;
+            renderTamanos();
+        });
 
-function revisarSiguientePasoSabores() {
-  const listoP1 = seleccionPedido.piso1.sabor !== "";
-  const listoP2 = esDosPisos ? seleccionPedido.piso2.sabor !== "" : true;
-
-  if (listoP1 && listoP2) {
-    precioBase = seleccionPedido.piso1.precio + (esDosPisos ? seleccionPedido.piso2.precio : 0);
-    saborElegido = esDosPisos ? `${seleccionPedido.piso1.sabor} (Abajo) y ${seleccionPedido.piso2.sabor} (Arriba)` : seleccionPedido.piso1.sabor;
-    
-    prepararRellenos();
-    cargarExtras();
-    mostrarPaso('paso3');
-    calcularTotal();
-  }
-}
-
-function prepararRellenos() {
-  const contenedor = document.getElementById('contenedorRellenos');
-  contenedor.innerHTML = '';
-  cantidadRellenosTotal = 0; // Reset global
-
-  if (esDosPisos) {
-    contenedor.innerHTML += `<p class="gold-text" style="margin:10px 0;">Rellenos Piso Abajo:</p>`;
-    generarListaRellenosUI(contenedor, 1);
-    contenedor.innerHTML += `<div class="divider"></div>`;
-    contenedor.innerHTML += `<p class="gold-text" style="margin:10px 0;">Rellenos Piso Arriba:</p>`;
-    generarListaRellenosUI(contenedor, 2);
-  } else {
-    generarListaRellenosUI(contenedor, 1);
-  }
-}
-
-function generarListaRellenosUI(contenedor, numPiso) {
-  todasLasTablas["Rellenos"].forEach((relleno, index) => {
-    const fila = document.createElement('div');
-    fila.className = 'relleno-item';
-    fila.innerHTML = `
-      <span>${relleno.Relleno} (+$${relleno.Precio})</span>
-      <div class="counter-controls">
-        <button onclick="cambiarCantidadRelleno(${numPiso}, ${index}, -1, ${relleno.Precio})" class="btn-qty">-</button>
-        <span id="cant-p${numPiso}-r${index}" class="cant-relleno" data-piso="${numPiso}" style="margin: 0 15px; font-weight: bold;">0</span>
-        <button onclick="cambiarCantidadRelleno(${numPiso}, ${index}, 1, ${relleno.Precio})" class="btn-qty">+</button>
-      </div>`;
-    contenedor.appendChild(fila);
-  });
-}
-
-window.cambiarCantidadRelleno = function(numPiso, index, cambio, precio) {
-  const span = document.getElementById(`cant-p${numPiso}-r${index}`);
-  let cantActual = parseInt(span.textContent);
-  
-  // Contar rellenos SOLO de este piso
-  let totalEstePiso = 0;
-  document.querySelectorAll(`.cant-relleno[data-piso="${numPiso}"]`).forEach(s => totalEstePiso += parseInt(s.textContent));
-
-  if (cambio === 1 && totalEstePiso < 2) { cantActual++; }
-  else if (cambio === -1 && cantActual > 0) { cantActual--; }
-
-  span.textContent = cantActual;
-  
-  // Recalcular el total global de rellenos para validación final
-  cantidadRellenosTotal = 0;
-  document.querySelectorAll('.cant-relleno').forEach(s => cantidadRellenosTotal += parseInt(s.textContent));
-  
-  calcularTotal();
-};
-
-function cargarExtras() {
-  const lista = document.getElementById('listaExtras');
-  lista.innerHTML = '';
-  todasLasTablas["Extras"].forEach((item, index) => {
-    const imgUrl = obtenerImagenDeHoja(item.Producto);
-    const card = document.createElement('div');
-    card.className = 'extra-card fade-in';
-    card.innerHTML = `
-      <img src="${imgUrl}">
-      <div class="extra-info">
-        <h4 style="margin:0; font-size: 0.9rem;">${item.Producto}</h4>
-        <p class="gold-text" style="font-size: 0.8rem; margin: 2px 0;">+$${item.Precio}</p>
-        <div class="counter-controls" style="display: flex; align-items: center; margin-top: 5px;">
-          <button onclick="cambiarCantidadExtra(${index}, -1, ${item.Precio})" id="minus-ex-${index}" class="btn-qty" disabled>-</button>
-          <span id="cant-ex-${index}" style="margin: 0 12px; font-weight: bold; min-width: 15px; text-align: center;">0</span>
-          <button onclick="cambiarCantidadExtra(${index}, 1, ${item.Precio})" id="plus-ex-${index}" class="btn-qty">+</button>
-        </div>
-      </div>`;
-    lista.appendChild(card);
-  });
-}
-
-window.cambiarCantidadExtra = function(index, cambio, precio) {
-  const spanCant = document.getElementById(`cant-ex-${index}`);
-  let cantActual = parseInt(spanCant.textContent);
-  if (cambio === 1 && cantActual < 3) { cantActual++; } 
-  else if (cambio === -1 && cantActual > 0) { cantActual--; }
-  spanCant.textContent = cantActual;
-  document.getElementById(`minus-ex-${index}`).disabled = (cantActual <= 0);
-  document.getElementById(`plus-ex-${index}`).disabled = (cantActual >= 3);
-  calcularTotal();
-};
-
-function calcularTotal() {
-  let sumaRellenos = 0;
-  document.querySelectorAll('.cant-relleno').forEach((span, i) => {
-    const cant = parseInt(span.textContent);
-    if (cant > 0) {
-      // Buscamos el precio en la tabla original de rellenos usando el índice
-      // El índice real de la tabla es (i % cantidad_de_rellenos_en_tabla)
-      const indexEnTabla = i % todasLasTablas["Rellenos"].length;
-      sumaRellenos += (cant * todasLasTablas["Rellenos"][indexEnTabla].Precio);
+    function renderTamanos() {
+        const grid = document.getElementById('gridTamanos');
+        for (const cat in todasLasTablas) {
+            if (["Rellenos", "Extras", "Imagenes", "Pedidos Recibidos"].includes(cat)) continue;
+            todasLasTablas[cat].forEach(f => {
+                const porc = f["Porciones"] || f["porcion"];
+                const el = document.createElement('div');
+                el.className = "bg-white p-10 rounded-3xl shadow-xl border-2 border-transparent cursor-pointer hover:border-[#C5A059] transition-all group";
+                el.innerHTML = `
+                    <span class="text-[#C5A059] text-[10px] font-bold uppercase tracking-widest">${cat}</span>
+                    <h4 class="text-[#003D51] text-3xl font-bold mt-3 italic font-serif">${porc} Porciones</h4>
+                `;
+                el.onclick = () => selectTamano(cat, porc, f);
+                grid.appendChild(el);
+            });
+        }
     }
-  });
 
-  let sumaExtras = 0;
-  if (todasLasTablas["Extras"]) {
-    todasLasTablas["Extras"].forEach((item, i) => {
-      const cantExEl = document.getElementById(`cant-ex-${i}`);
-      if (cantExEl) {
-        const cantEx = parseInt(cantExEl.textContent);
-        sumaExtras += (cantEx * item.Precio);
-      }
-    });
-  }
+    function selectTamano(cat, porc, fila) {
+        pedido.esDoble = (cat === "Dos_Pisos");
+        pedido.base = pedido.esDoble ? parseFloat(Object.values(fila).find(v => !isNaN(v) && v > 0)) : 0;
+        generarGaleria(fila);
+        scrollToId('contenedorSabores');
+    }
 
-  const total = precioBase + sumaRellenos + sumaExtras;
-  const totalDiv = document.getElementById('totalFinal');
-  
-  if (cantidadRellenosTotal >= (esDosPisos ? 2 : 1)) {
-    totalDiv.innerHTML = `Total del Pedido: <span id="montoTotal" style="color: var(--gold); font-size: 1.2em;">$${total.toFixed(2)}</span>`;
-  } else {
-    totalDiv.innerHTML = `<span style="color:orange;">⚠️ Elige al menos ${esDosPisos ? '1 relleno por piso' : '1 relleno'}</span>`;
-  }
-}
+    function generarGaleria(fila) {
+        const cont = document.getElementById('contenedorSabores');
+        cont.innerHTML = '';
+        Object.keys(fila).forEach(s => {
+            if (s.toLowerCase().includes('porcion') || s.toLowerCase().includes('imagen')) return;
+            const p = fila[s];
+            const img = getImg(s);
+            const desc = s === "Chocotón del Amor" ? "Nuestra especialidad con Ganache de chocolate premium[cite: 1]." : "Elaboración artesanal con la receta secreta de Pan & Canela.";
 
-function validarYPasarADatos() {
-  if (esDosPisos && cantidadRellenosTotal < 2) {
-    return alert("Por favor, elige al menos 1 relleno por cada piso.");
-  } else if (!esDosPisos && cantidadRellenosTotal < 1) {
-    return alert("Por favor, elige al menos 1 relleno para continuar.");
-  }
-  mostrarPaso('paso4');
-}
+            const sec = document.createElement('section');
+            sec.className = "snap-section bg-white flex flex-col md:flex-row items-center gap-20 px-24";
+            sec.innerHTML = `
+                <img src="${img}" class="hero-image" data-aos="fade-right">
+                <div class="max-w-xl" data-aos="fade-left">
+                    <h2 class="text-7xl text-[#003D51] italic mb-8 font-serif">${s}</h2>
+                    <p class="text-zinc-500 text-xl font-light leading-relaxed mb-10">${desc}</p>
+                    <div class="flex items-center gap-10">
+                        <span class="text-5xl font-bold text-[#C5A059]">$${p}</span>
+                        <button onclick="abrirConfig('${s}', ${p})" class="gold-btn px-12 py-5 rounded-full font-bold uppercase text-xs">Seleccionar</button>
+                    </div>
+                </div>
+            `;
+            cont.appendChild(sec);
+        });
+        AOS.refresh();
+    }
 
-document.getElementById('btnWhatsApp').addEventListener('click', async () => {
-  const nombre = document.getElementById('nombreCliente').value;
-  const fecha = document.getElementById('fechaEntrega').value;
-  const selectHora = document.getElementById('horaEntrega');
-  const horaTexto = selectHora.options[selectHora.selectedIndex].text;
-  const total = document.getElementById('montoTotal')?.innerText || "0.00";
+    function abrirConfig(sabor, precio) {
+        pedido.piso1.sabor = sabor;
+        pedido.piso1.precio = parseFloat(precio);
+        renderOpciones();
+        document.getElementById('overlayConfig').classList.remove('translate-x-full');
+        calcTotal();
+    }
 
-  if (!nombre || !fecha) return alert("Completa los datos de entrega.");
+    function renderOpciones() {
+        const divR = document.getElementById('listaRellenos');
+        divR.innerHTML = '';
+        todasLasTablas["Rellenos"].forEach((r, i) => {
+            divR.innerHTML += `
+                <div class="flex justify-between items-center p-5 bg-zinc-50 rounded-2xl border border-zinc-100">
+                    <span class="font-bold text-[#003D51] text-base">${r.Relleno} (+$${r.Precio})</span>
+                    <div class="flex items-center gap-5">
+                        <button onclick="updQty('r', ${i}, -1)" class="w-10 h-10 rounded-full bg-[#003D51] text-white">-</button>
+                        <span id="q-r-${i}" class="font-bold text-xl">0</span>
+                        <button onclick="updQty('r', ${i}, 1)" class="w-10 h-10 rounded-full bg-[#003D51] text-white">+</button>
+                    </div>
+                </div>`;
+        });
 
-  const selectT = document.getElementById('selectTamaño');
-  const formaTamaño = selectT.options[selectT.selectedIndex].text;
+        const divE = document.getElementById('listaExtras');
+        divE.innerHTML = '';
+        todasLasTablas["Extras"].forEach((ex, i) => {
+            const isLim = ex.Producto.includes("Limón");
+            divE.innerHTML += `
+                <div class="flex justify-between items-center p-5 bg-zinc-50 rounded-2xl border border-zinc-100">
+                    <div>
+                        <span class="block font-bold text-[#003D51]">${ex.Producto}</span>
+                        <span class="text-xs text-[#C5A059] font-bold">${isLim ? "PREMIUM +$3.00[cite: 1]" : "+$"+ex.Precio}</span>
+                    </div>
+                    <div class="flex items-center gap-5">
+                        <button onclick="updQty('e', ${i}, -1)" class="w-8 h-8 rounded-full bg-zinc-200 text-[#003D51]">-</button>
+                        <span id="q-e-${i}" class="font-bold">0</span>
+                        <button onclick="updQty('e', ${i}, 1)" class="w-8 h-8 rounded-full bg-zinc-200 text-[#003D51]">+</button>
+                    </div>
+                </div>`;
+        });
+    }
 
-  // Recopilar Rellenos por piso para el mensaje
-  let rellenosMsj = "";
-  if (esDosPisos) {
-    rellenosMsj += "*Piso Abajo:* ";
-    todasLasTablas["Rellenos"].forEach((r, i) => {
-      const c = document.getElementById(`cant-p1-r${i}`).textContent;
-      if(c > 0) rellenosMsj += `${c}x ${r.Relleno}, `;
-    });
-    rellenosMsj += "\n*Piso Arriba:* ";
-    todasLasTablas["Rellenos"].forEach((r, i) => {
-      const c = document.getElementById(`cant-p2-r${i}`).textContent;
-      if(c > 0) rellenosMsj += `${c}x ${r.Relleno}, `;
-    });
-  } else {
-    todasLasTablas["Rellenos"].forEach((r, i) => {
-      const c = document.getElementById(`cant-p1-r${i}`).textContent;
-      if(c > 0) rellenosMsj += `${c}x ${r.Relleno}, `;
-    });
-  }
+    function updQty(tipo, idx, delta) {
+        const el = document.getElementById(`q-${tipo}-${idx}`);
+        let cur = parseInt(el.textContent);
+        if (tipo === 'r') {
+            const totR = Array.from(document.querySelectorAll('[id^="q-r-"]')).reduce((a,b) => a + parseInt(b.textContent), 0);
+            if (delta > 0 && totR >= (pedido.esDoble ? 4 : 2)) return; // Máx 2 por piso[cite: 1]
+        } else {
+            const totE = Array.from(document.querySelectorAll('[id^="q-e-"]')).reduce((a,b) => a + parseInt(b.textContent), 0);
+            if (delta > 0 && totE >= 3) return; // Máx 3 extras[cite: 1]
+        }
+        if (cur + delta >= 0) el.textContent = cur + delta;
+        calcTotal();
+    }
 
-  let extrasElegidos = "";
-  todasLasTablas["Extras"].forEach((ex, i) => {
-    const c = document.getElementById(`cant-ex-${i}`)?.textContent;
-    if (parseInt(c) > 0) extrasElegidos += `${c}x ${ex.Producto}, `;
-  });
+    function calcTotal() {
+        let ext = 0;
+        document.querySelectorAll('[id^="q-"]').forEach(s => {
+            const [t, i] = s.id.replace('q-', '').split('-');
+            const c = parseInt(s.textContent);
+            if (c > 0) ext += (c * (t === 'r' ? todasLasTablas["Rellenos"][i].Precio : todasLasTablas["Extras"][i].Precio));
+        });
+        const total = pedido.base + pedido.piso1.precio + ext;
+        document.getElementById('txtTotal').textContent = `$${total.toFixed(2)}`;
+        
+        const btn = document.getElementById('btnFlujo');
+        const totR = Array.from(document.querySelectorAll('[id^="q-r-"]')).reduce((a,b) => a + parseInt(b.textContent), 0);
+        const min = pedido.esDoble ? 2 : 1;
+        
+        if (totR >= min) {
+            btn.disabled = false; btn.textContent = "Siguiente ⮕";
+            btn.classList.add('bg-[#C5A059]');
+        } else {
+            btn.disabled = true; btn.textContent = "Faltan Rellenos...";
+            btn.classList.remove('bg-[#C5A059]');
+        }
+    }
 
-  const datosPedido = {
-    nombre: nombre, fechaEntrega: fecha, hora: horaTexto,
-    detalle: `${formaTamaño} - Sabores: ${saborElegido}`,
-    rellenos: rellenosMsj, extras: extrasElegidos, total: total
-  };
+    function scrollToId(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+    function cerrarOverlay() { document.getElementById('overlayConfig').classList.add('translate-x-full'); }
+    function getImg(n) { return todasLasTablas["Imagenes"]?.find(i => i.Producto === n)?.Imagen || "https://i.ibb.co/3sX8F8P/logo-pan-canela.png"; }
+    function finalizar() { alert("Pedido validado. Procediendo a datos de entrega y recordatorio del 50% de abono[cite: 1]."); }
+</script>
 
-  try {
-    const response = await fetch(urlAPI, { method: 'POST', body: JSON.stringify(datosPedido) });
-    const resultado = await response.json();
-    
-    const textoMensaje = `¡Hola! Vengo de la página web de *Pan & Canela* 🥨✨\n\n` +
-      `Agradecemos tu pedido. Aquí el resumen:\n\n` +
-      `*Orden #:* ${resultado.orden}\n` +
-      `*Cliente:* ${nombre}\n` +
-      `*Entrega:* ${fecha} a las ${horaTexto}\n\n` +
-      `*Detalle:* ${formaTamaño}\n` +
-      `- Sabores: ${saborElegido}\n` +
-      `*Rellenos:*\n${rellenosMsj}\n` +
-      (extrasElegidos ? `*Extras:* ${extrasElegidos}\n` : "") +
-      `\n*TOTAL:* ${total}\n\n` +
-      `📌 *Abono 50%:* *$${(parseFloat(total.replace(/[^0-9.]/g, '')) / 2).toFixed(2)}* para confirmar.`;
-
-    window.open(`https://wa.me/593985482535?text=${encodeURIComponent(textoMensaje)}`, '_blank');
-  } catch (e) { alert("Error al guardar pedido."); }
-});
-      
-    </script>
 </body>
 </html>
